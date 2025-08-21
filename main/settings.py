@@ -117,17 +117,11 @@ WSGI_APPLICATION = 'main.wsgi.application'
 # }
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': getenv('PGDATABASE'),
-        'USER': getenv('PGUSER'),
-        'PASSWORD': getenv('PGPASSWORD'),
-        'HOST': getenv('PGHOST'),
-        'PORT': getenv('PGPORT', 5432),
-         'OPTIONS': {
-             'sslmode': 'require',
-        }
-    }
+    "default": dj_database_url.config(
+        default="postgres://localhost:5432/postgres",
+        conn_max_age=600,
+        ssl_require=True
+    )
 }
 
 CSRF_TRUSTED_ORIGINS = [
